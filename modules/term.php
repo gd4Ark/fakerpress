@@ -8,7 +8,8 @@ use FakerPress\Utils;
 class Term extends Base {
 
 	public $dependencies = array(
-		'\Faker\Provider\Lorem',
+        '\Faker\Provider\Lorem',
+        '\Faker\Provider\Category',
 	);
 
 	public $meta = false;

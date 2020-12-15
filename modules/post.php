@@ -9,7 +9,9 @@ class Post extends Base {
 
 	public $dependencies = array(
 		'\Faker\Provider\Lorem',
+		'\Faker\Provider\CustomKeyWord',
 		'\Faker\Provider\DateTime',
+		'\Faker\Provider\Title',
 		'\Faker\Provider\HTML',
 	);
 
@@ -156,8 +158,8 @@ class Post extends Base {
 		// Fetch Metas It will be parsed later!
 		$metas = Variable::super( $request, array( 'meta' ), FILTER_UNSAFE_RAW );
 
-		$results = array();
-
+        $results = array();
+        
 		for ( $i = 0; $i < $qty; $i++ ) {
 			$this->set( 'post_title' );
 			$this->set( 'post_status', 'publish' );
@@ -171,8 +173,8 @@ class Post extends Base {
 			$this->set( 'tax_input', $taxonomies_configuration );
 
 			$generated = $this->generate();
-			$post_id = $generated->save();
-
+            $post_id = $generated->save();
+            
 			if ( $post_id && is_numeric( $post_id ) ) {
 				foreach ( $metas as $meta_index => $meta ) {
 					Meta::instance()->object( $post_id )->generate( $meta['type'], $meta['name'], $meta )->save();

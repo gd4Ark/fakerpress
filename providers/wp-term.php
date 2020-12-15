@@ -5,10 +5,7 @@ use FakerPress;
 class WP_Term extends Base {
 	public function name( $qty = 4 ) {
 		$qty = FakerPress\Utils::instance()->get_qty_from_range( $qty );
-		$name = $this->generator->sentence( $qty );
-
-		// This removes the last dot on the end of the sentence
-		$name = rtrim( $name, '.' );
+		$name = $this->generator->word( $qty );
 
 		return $name;
 	}

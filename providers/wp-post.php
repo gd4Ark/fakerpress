@@ -9,10 +9,10 @@ class WP_Post extends Base {
 		'comment_status' => array( 'closed', 'open' ),
 	);
 
-	public function post_title( $qty_words = 5 ) {
-		$title = $this->generator->sentence( $qty_words );
-		$title = substr( $title, 0, strlen( $title ) - 1 );
-
+	public function post_title() {
+		$title = $this->generator->sentence( 1 );
+        $title = substr( $title, 0, strlen( $title ) - 1 );
+        
 		return $title;
 	}
 
@@ -72,10 +72,10 @@ class WP_Post extends Base {
 
 	public function post_content( $html = true, $args = array() ) {
 		if ( true === $html ){
-			$content = implode( "\n", $this->generator->html_elements( $args ) );
+			$content = $this->generator->html_elements( $args );
 		} else {
 			$content = implode( "\r\n\r\n", $this->generator->paragraphs( $this->generator->randomDigitNotNull() ) );
-		}
+        }
 
 		return $content;
 	}
