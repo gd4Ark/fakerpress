@@ -12,13 +12,17 @@ class Category extends TextBase
             return self::$wordList;
         }
 
-        $categories = include __DIR__ . '/../../mock/category.php';
+        $data = null;
 
-        if (is_array($categories)) {
-            self::$wordList = $categories;
+        $customPath = self::getCustomFakePath() . '/category.php';
+
+        if (file_exists($customPath)) {
+            $data = include $customPath;
         } else {
-            self::$wordList = [];
+            $data = include __DIR__ . '/../../mock/category.php';
         }
+
+        self::$wordList = is_array($data) ? $data : [];
 
         return self::$wordList;
     }

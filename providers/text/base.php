@@ -200,5 +200,10 @@ class TextBase extends Base {
 
 	protected static function randomize_nb_elements( $nbElements ) {
 		return (int) ( $nbElements * mt_rand( 60, 140 ) / 100 ) + 1;
-	}
+    }
+    
+    public static function getCustomFakePath(){
+        return get_template_directory() . '/../__mock__';
+    }
 }
+

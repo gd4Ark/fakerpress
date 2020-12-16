@@ -12,13 +12,17 @@ class title extends TextBase
             return self::$wordList;
         }
 
-        $categories = include __DIR__ . '/../../mock/title.php';
+        $data = null;
 
-        if (is_array($categories)) {
-            self::$wordList = $categories;
+        $customPath = self::getCustomFakePath() . '/title.php';
+
+        if (file_exists($customPath)) {
+            $data = include $customPath;
         } else {
-            self::$wordList = [];
+            $data = include __DIR__ . '/../../mock/title.php';
         }
+
+        self::$wordList = is_array($data) ? $data : [];
 
         return self::$wordList;
     }

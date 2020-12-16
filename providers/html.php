@@ -53,10 +53,7 @@ class HTML extends Base
         return count($filtered) > 0;
     }
 
-    public function getFiles()
-    {
-        $html_path = __DIR__ . '/../mock/html/';
-
+    public function fetchFiles($html_path){
         if (!self::$files) {
             $files = scandir($html_path);
 
@@ -68,6 +65,21 @@ class HTML extends Base
         }
 
         return self::$files;
+    }
+
+    public function getCustomFiles(){
+        $path = TextBase::getCustomFakePath() . '/html/';
+
+        return $this->fetchFiles($path);
+    }
+
+    public function getFiles()
+    {     
+        if ($customData = $this->getCustomFiles()){
+            return $customData;
+        }
+
+        return $this->fetchFiles(__DIR__ . '/../mock/html/');
     }
 
     public function html_elements($args = array())
@@ -207,21 +219,21 @@ class HTML extends Base
             if (!is_null($text)) {
                 $html[] = $text;
             } elseif (in_array($element->name, self::$sets['inline'])) {
-                $text   = CustomKeyWord::text(Base::numberBetween(5, 25));
+                $text   = Lorem::text(Base::numberBetween(5, 25));
                 // FIXME: 字符编码有问题，暂时这样，使它能存进数据库中，但仍会显示 「??」
                 $html[] = mb_convert_encoding($text, "UTF-8");
             } elseif (in_array($element->name, self::$sets['item'])) {
-                $text   = CustomKeyWord::text(Base::numberBetween(10, 60));
+                $text   = Lorem::text(Base::numberBetween(10, 60));
                 $html[] = mb_convert_encoding($text, "UTF-8");
             } elseif (in_array($element->name, self::$sets['list'])) {
                 for ($i = 0; $i < Base::numberBetween(1, 15); $i++) {
                     $html[] = $this->element('li');
                 }
             } elseif (in_array($element->name, self::$sets['header'])) {
-                $text   = CustomKeyWord::text(Base::numberBetween(60, 200));
+                $text   = Lorem::text(Base::numberBetween(60, 200));
                 $html[] = mb_convert_encoding($text, "UTF-8");
             } else {
-                $html[] = $this->random_apply_element('a', Base::numberBetween(0, 10), CustomKeyWord::paragraph(Base::numberBetween(2, 40)));
+                $html[] = $this->random_apply_element('a', Base::numberBetween(0, 10), Lorem::paragraph(Base::numberBetween(2, 40)));
             }
 
             $html[] = sprintf('</%s>', $element->name);

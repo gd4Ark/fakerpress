@@ -9,7 +9,6 @@ class Post extends Base {
 
 	public $dependencies = array(
 		'\Faker\Provider\Lorem',
-		'\Faker\Provider\CustomKeyWord',
 		'\Faker\Provider\DateTime',
 		'\Faker\Provider\Title',
 		'\Faker\Provider\HTML',

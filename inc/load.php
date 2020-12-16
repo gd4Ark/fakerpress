@@ -34,7 +34,6 @@ require_once Plugin::path( 'providers/image/placeholdit.php' );
 require_once Plugin::path( 'providers/image/unsplashit.php' );
 require_once Plugin::path( 'providers/image/500px.php' );
 require_once Plugin::path( 'providers/text/base.php' );
-require_once Plugin::path( 'providers/text/custom-keyword.php' );
 require_once Plugin::path( 'providers/text/category.php' );
 require_once Plugin::path( 'providers/text/title.php' );
 
